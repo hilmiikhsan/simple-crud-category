@@ -7,6 +7,7 @@ import (
 	"github.com/golang/go-crud-category-api/app"
 	"github.com/golang/go-crud-category-api/controller"
 	"github.com/golang/go-crud-category-api/exception"
+	"github.com/golang/go-crud-category-api/middleware"
 	"github.com/golang/go-crud-category-api/repository"
 	"github.com/golang/go-crud-category-api/service"
 	"github.com/julienschmidt/httprouter"
@@ -32,7 +33,7 @@ func main() {
 
 	server := http.Server{
 		Addr:    "localhost:3000",
-		Handler: router,
+		Handler: middleware.NewAuthMiddleware(router),
 	}
 
 	err := server.ListenAndServe()
